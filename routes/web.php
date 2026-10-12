@@ -35,6 +35,7 @@ Route::post('question/store', [QuestionController::class, 'store'])
 		->name('question.store');
 
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard.index');
 
 Route::resource('pelanggan', PelangganController::class);
