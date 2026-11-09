@@ -6,7 +6,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 
 
 Route::get('/pcr', function () {
@@ -39,3 +39,6 @@ Route::get('dashboard', [DashboardController::class, 'index'])
         ->name('dashboard.index');
 
 Route::resource('pelanggan', PelangganController::class);
+
+Route::resource('users', UserController::class);
+
