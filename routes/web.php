@@ -8,6 +8,10 @@ use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 
 Route::get('/pcr', function () {
     return'Selamat Datang di Website Kampus PCR!';
