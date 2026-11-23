@@ -56,4 +56,4 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('auth.logout');
 
-
+Route::get('auth/logout', [AuthController::class,'logout'])->name('logout');
