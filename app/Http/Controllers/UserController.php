@@ -12,6 +12,12 @@ class UserController extends Controller
     // Menampilkan daftar User
     public function index()
     {
+
+        if (! Auth::check()) {
+            return redirect()
+                ->route('auth.login')
+                ->withErrors('Silahkan login terlebih dahulu');
+        }
         $data['dataUser'] = User::all();
 
         return view('admin.user.index', $data);
