@@ -7,6 +7,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +20,9 @@ Route::get('/pcr', function () {
 
 
 Route::get('/mahasiswa/{param1}', [MahasiswaController::class, 'show']);
+
+
+Route::get('/mahasiswa', [MahasiswaController::class, 'show'])->name('mahasiswa.show');
 
 Route::get('/nama/{param1}', function ($param1) {
     return 'Nama saya: '.$param1;
@@ -45,4 +49,11 @@ Route::get('dashboard', [DashboardController::class, 'index'])
 Route::resource('pelanggan', PelangganController::class);
 
 Route::resource('users', UserController::class);
+
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('auth.logout');
+
 
