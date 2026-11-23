@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -33,15 +33,17 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => 'required|email|unique:users,email',
+            'name'     => 'required|string|max:100',
+            'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+            'role'     => 'required|in:Super Admin,Pelanggan,Mitra',
         ]);
 
         User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
 
         return redirect()
@@ -71,17 +73,18 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => [
+            'name'     => 'required|string|max:100',
+            'email'    => [
                 'required',
                 'email',
                 'max:255',
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
             'password' => 'nullable|string|min:8|confirmed',
+            'role'     => 'required|in:Super Admin, Pelanggan, Mitra',
         ]);
 
-        $user->name = $request->name;
+        $user->name  = $request->name;
         $user->email = $request->email;
 
         // Password hanya diganti jika diisi
